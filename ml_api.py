@@ -180,15 +180,10 @@ def predict():
 
 
 if __name__ == '__main__':
-    # Ensure the models_vect directory exists
-    if not os.path.exists('models_vect'):
-        os.makedirs('models_vect')
-        print("Created 'models_vect' directory. Please place 'model.pkl' and 'vectorizer.pkl' inside.")
-        sys.exit(1) # Exit as model files are missing
-
-    # You would typically run this with a production-ready server like Gunicorn
-    # app.run(debug=True) # Use debug=True for development
-    print("Flask app ready. Use a production WSGI server like Gunicorn to run it.")
-    # Example command to run with Gunicorn: gunicorn -w 4 your_app_file_name:app
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Use PORT from environment (Render sets $PORT). Default to 5000 for local runs.
+    port = int(os.environ.get('PORT', 5000))
+    # You would typically run this with a production-ready server like Gunicorn on Render:
+    # gunicorn -w 4 -b 0.0.0.0:$PORT ml_api:app
+    print(f"Starting Flask development server on 0.0.0.0:{port}. For production, use Gunicorn.")
+    app.run(debug=True, host='0.0.0.0', port=port)
     
