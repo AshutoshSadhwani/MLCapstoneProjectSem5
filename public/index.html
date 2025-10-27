@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Eligibility Predictor</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-bg">
+    <!-- Decorative background elements from style.css -->
+    <div class="bg-trails">
+        <div></div>
+        <div></div>
+    </div>
+    <div class="bg-accents"></div>
+    <div class="bg-noise"></div>
+
+    <header class="main-header">
+        <h1>Player Eligibility Predictor</h1>
+    </header>
+
+    <div class="form-container">
+        <div class="form-header">
+            <p class="subtitle">Enter player attributes and get a quick eligibility assessment with visual insights.</p>
+        </div>
+        
+        <form id="player-stats-form">
+            <div class="form-grid">
+                <div class="form-group"><label for="age">Age:</label><input type="number" id="age" name="age" placeholder="20"></div>
+                <div class="form-group"><label for="weight_kg">Weight (kg):</label><input type="number" id="weight_kg" name="weight_kg" placeholder="69"></div>
+                <div class="form-group"><label for="potential">Potential:</label><input type="number" id="potential" name="potential" placeholder="42"></div>
+                <div class="form-group"><label for="skill_moves">Skill Moves:</label><input type="number" id="skill_moves" name="skill_moves" placeholder="3"></div>
+                <div class="form-group"><label for="work_rate">Work Rate:</label><input type="text" id="work_rate" name="work_rate" placeholder="Low/High"></div>
+                <div class="form-group"><label for="body_type">Body Type:</label><input type="text" id="body_type" name="body_type" placeholder="Fat"></div>
+                <div class="form-group"><label for="pace">Pace:</label><input type="number" id="pace" name="pace" placeholder="90"></div>
+                <div class="form-group"><label for="shooting">Shooting:</label><input type="number" id="shooting" name="shooting" placeholder="88"></div>
+                <div class="form-group"><label for="passing">Passing:</label><input type="number" id="passing" name="passing" placeholder="85"></div>
+                <div class="form-group"><label for="defending">Defending:</label><input type="number" id="defending" name="defending" placeholder="72"></div>
+                <div class="form-group"><label for="physic">Physic:</label><input type="number" id="physic" name="physic" placeholder="74"></div>
+                <div class="form-group full-width"><label for="player_traits">Player Traits:</label><input type="text" id="player_traits" name="player_traits" placeholder="Outside Foot Shot"></div>
+            </div>
+            <button type="submit" id="predict-button">Predict Eligibility</button>
+        </form>
+        <div class="prediction-result" id="prediction-result">
+            <!-- Prediction will be shown here -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+
+/*
+  Dashboard background — sleek futuristic matte gradients
+  - Adds layered soft blues/purples/teals
+  - Includes faint geometric shapes and subtle circuit-like light trails
+  - Uses only CSS (gradients, pseudo-elements) so there are no external assets
+  - Apply by adding `class="dashboard-bg"` to the page's <body> or rely on default body styles below
+*/
+
+/* New light theme variables */
+:root {
+    --color-bg-primary: #f8faff; /* Very light blue-white */
+    --color-bg-secondary: #ffffff; /* Pure white for cards/surfaces */
+    --color-text-primary: #333333; /* Dark gray for main text */
+    --color-text-secondary: #666666; /* Medium gray for subtitles/labels */
+    --color-accent-blue: #3b82f6; /* Professional blue */
+    --color-accent-green: #10b981; /* Professional green */
+    --color-accent-red: #ef4444; /* Professional red */
+    --color-border-light: #e0e6ed; /* Light border color */
+    --color-shadow-light: rgba(0, 0, 0, 0.05); /* Subtle shadow */
+    --color-glass-overlay: rgba(255, 255, 255, 0.7); /* Semi-transparent white for glass effect */
+}
+
+body.dashboard-bg, body {
+    background-color: var(--color-bg-primary);
+    background-image: linear-gradient(135deg, var(--color-bg-primary) 0%, #eef6fc 100%); /* Subtle light gradient */
+    background-attachment: fixed;
+    background-size: cover;
+    color: var(--color-text-primary);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    font-size: 15px;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* Layered soft glows and subtle texture */
+body.dashboard-bg::before,
+body::before {
+    content: '';
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    /* soft, very subtle colored blobs for depth (lightened) */
+    background-image:
+        radial-gradient(circle at 12% 18%, rgba(59,130,246,0.03) 0%, transparent 28%),
+        radial-gradient(circle at 82% 78%, rgba(124,58,237,0.02) 0%, transparent 28%),
+        radial-gradient(circle at 50% 40%, rgba(16,185,129,0.02) 0%, transparent 22%);
+    filter: blur(20px) saturate(100%);
+    mix-blend-mode: normal;
+    opacity: 0.7;
+}
+
+/* Faint circuit-like grid + thin glowing trails that slowly drift */
+body.dashboard-bg::after,
+body::after {
+    content: '';
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    /* subtle fine texture for a tech feel, toned down for light background */
+    background-image:
+        repeating-linear-gradient(90deg, rgba(11,18,32,0.02) 0 1px, transparent 1px 36px),
+        linear-gradient(120deg, rgba(99,102,241,0.02), rgba(45,212,191,0.01));
+    background-blend-mode: overlay;
+    filter: blur(3px) contrast(1.01);
+    animation: bg-drift 24s linear infinite;
+    opacity: 0.9;
+}
+
+/* Thin animated light trails (pseudo elements inside a full-width fixed element) */
+.bg-trails {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+}
+.bg-trails::before,
+.bg-trails::after {
+    content: '';
+    position: absolute;
+    width: 160%;
+    height: 220px;
+    left: -30%;
+    top: 10%;
+    background: linear-gradient(90deg, transparent 0%, rgba(99,102,241,0.035) 30%, rgba(124,58,237,0.04) 50%, rgba(16,185,129,0.03) 70%, transparent 100%);
+    transform: rotate(-6deg);
+    filter: blur(28px) saturate(120%);
+    opacity: 0.6;
+    mix-blend-mode: screen;
+    animation: trail-move 16s linear infinite;
+}
+.bg-trails::after {
+    top: 62%;
+    transform: rotate(8deg);
+    animation-duration: 22s;
+    opacity: 0.45;
+}
+
+@keyframes trail-move {
+    0% { transform: translateX(-6%) rotate(-6deg); }
+    50% { transform: translateX(6%) rotate(-6deg); }
+    100% { transform: translateX(-6%) rotate(-6deg); }
+}
+
+@keyframes bg-drift {
+    0% { background-position: 0% 0%; }
+    50% { background-position: 20% 10%; }
+    100% { background-position: 0% 0%; }
+}
+
+/* subtle geometric accents: soft outlined shapes */
+.bg-accents {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+}
+.bg-accents::before {
+    content: '';
+    position: absolute;
+    right: 6%;
+    top: 10%;
+    width: 420px;
+    height: 420px;
+    border-radius: 16%;
+    background: conic-gradient(from 90deg at 50% 50%, rgba(124,58,237,0.02), rgba(59,130,246,0.015), rgba(16,185,129,0.01));
+    filter: blur(25px);
+    opacity: 0.4;
+}
+.bg-accents::after {
+    content: '';
+    position: absolute;
+    left: 6%;
+    bottom: 8%;
+    width: 320px;
+    height: 320px;
+    transform: rotate(12deg);
+    border-radius: 20%;
+    background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.02), transparent 40%);
+    filter: blur(20px);
+    opacity: 0.5;
+}
+
+/* Main Header for the title */
+.main-header {
+    width: 100%;
+    text-align: center;
+    padding: 30px 0 20px 0; /* More padding top */
+    position: relative;
+    z-index: 10; /* Ensure it's above background effects */
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 3rem; /* Larger font size */
+    color: var(--color-text-primary);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Soft shadow for depth */
+}
+
+/* small noise overlay for matte finish */
+.bg-noise {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none; mix-blend-mode: overlay; opacity: 0.015; /* Reduced opacity */
+    background-image: radial-gradient(rgba(11,18,32,0.01) 1px, transparent 1px); /* Lighter noise */
+    background-size: 8px 8px;
+}
+
+/* utility: easy apply helper when you want this background */
+.use-dashboard-bg { position: relative; }
+
+/* end background section */
+
+/* Chat container styles */
+.chat-container {
+    max-width: 800px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.chat-header {
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.chat-header h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Messages area */
+.chat-messages {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.message {
+    max-width: 70%;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin: 4px 0;
+}
+
+.user-message {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #f1f1f1;
+    color: #333;
+    align-self: flex-start;
+}
+
+/* Input area */
+.chat-input {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+    display: flex;
+    gap: 10px;
+}
+
+#user-input {
+    flex-grow: 1;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    resize: none;
+    font-family: inherit;
+}
+
+#send-button {
+    padding: 12px 24px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#send-button:hover {
+    background-color: #0056b3;
+}
+
+/* Scrollbar styles */
+.chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.chat-messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Form and predictor styles */
+.form-container {
+    max-width: 980px;
+    margin: 36px auto;
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+    border-radius: 14px;
+    box-shadow: 0 12px 40px rgba(2,6,23,0.25), inset 0 1px 0 rgba(255,255,255,0.04);
+    padding: 26px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    backdrop-filter: blur(8px) saturate(120%);
+    -webkit-backdrop-filter: blur(8px) saturate(120%);
+    border: 1px solid rgba(255,255,255,0.08);
+}
+
+.form-header h1 {
+    margin: 0 0 6px 0;
+    font-size: 26px;
+    color: #0f172a;
+    letter-spacing: -0.4px;
+}
+
+.form-header .subtitle {
+    margin: 0 0 14px 0;
+    color: rgba(15,23,42,0.7);
+    font-size: 13px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 6px;
+}
+
+.form-group input[type="number"],
+.form-group input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #dcdcdc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form-group.full-width { grid-column: 1 / -1; }
+
+#predict-button {
+    margin-top: 14px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg,#3b82f6,#2563eb);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#predict-button:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px rgba(37,99,235,0.18); }
+
+.prediction-result {
+    margin-top: 18px;
+    min-height: 44px;
+}
+
+/* Banner styles for eligibility */
+.result-banner {
+    padding: 14px 18px;
+    border-radius: 8px;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(2,6,23,0.12), inset 0 -2px 8px rgba(255,255,255,0.02);
+    backdrop-filter: blur(6px);
+}
+
+.result-banner.eligible {
+    background: linear-gradient(90deg, rgba(16,185,129,0.96), rgba(5,150,105,0.9)); /* green */
+}
+
+.result-banner.not-eligible {
+    background: linear-gradient(90deg, rgba(239,68,68,0.96), rgba(220,38,38,0.92)); /* red */
+}
+
+.result-banner .badge {
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.12);
+    display:flex;align-items:center;justify-content:center;font-size:18px;
+    box-shadow: 0 6px 18px rgba(2,6,23,0.12);
+}
+.result-banner .badge svg { display:block; }
+.result-banner .badge path { filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25)); }
+
+.result-subtext {
+    display:block;
+    font-size:13px;
+    opacity:0.95;
+    font-weight:500;
+}
+
+/* reasons list styling */
+.result-reasons {
+    margin-top:8px;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 8px;
+    color: rgba(255,255,255,0.95);
+    font-weight:500;
+}
+
+.result-reasons ul { margin:6px 0 0 18px; }
+.result-reasons li { margin-bottom:4px; }
+
+.prediction-result.error { color: #b91c1c; font-weight:600 }
+
+@media (max-width:700px){
+    .form-grid{ grid-template-columns: repeat(1,1fr); }
+}
+
+/* Overall meter card (replaces circle) */
+.overall-circle {
+    width: 300px; /* Slightly smaller width */
+    min-height: 100px; /* Slightly smaller height */
+    border-radius: 14px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding: 14px 18px;
+    color:var(--color-text-primary);
+    font-weight:700;
+    position: relative;
+    margin-top: 20px; /* Adjusted margin */
+    background: var(--color-bg-secondary); /* Pure white background */
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.6); /* Refined shadow */
+    border: 1px solid var(--color-border-light); /* Light border */
+}
+
+/* linear progress bar as a left-side accent; width controlled by --pct */
+.overall-circle::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 8px;
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    background: linear-gradient(180deg, var(--ring-color, var(--color-accent-blue)), rgba(0,0,0,0.06));
+    transform-origin: left center;
+    /* animate a filling effect by using a gradient stop with var(--pct) */
+    background-image: linear-gradient(180deg, var(--ring-color, var(--color-accent-blue)) var(--pct, 0%), rgba(0,0,0,0.06) var(--pct, 0%));
+    transition: background-image 900ms ease-out;
+    z-index: 0;
+}
+
+.overall-circle .inner {
+    position: relative;
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    z-index: 2;
+}
+
+.overall-details { display:flex; flex-direction:column; }
+.overall-value { font-size: 32px; color: var(--color-text-primary); line-height:1; } /* Adjusted font size and color */
+.overall-label { font-size: 12px; color: var(--color-text-secondary); margin-top:6px; } /* Adjusted color */
+.overall-meter { width: 120px; height: 10px; background: linear-gradient(90deg,#eef6fc,#f1f5f9); border-radius: 999px; overflow:hidden; } /* Adjusted width and height */
+.overall-meter .bar { height:100%; width:0%; background: linear-gradient(90deg,var(--ring-color,var(--color-accent-blue)), var(--color-accent-green)); transition: width 900ms ease-out; }
+
+/* color variants */
+.overall-circle.green { --ring-color: #10b981; }
+.overall-circle.orange { --ring-color: #f97316; }
+.overall-circle.red { --ring-color: #ef4444; }
+
+/* improved layout for the result area */
+.prediction-area {
+    display:flex;
+    justify-content: center; /* Center align results */
+    align-items:center;
+    gap:24px; /* Increased gap */
+    width:100%;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+/* container that holds the banner and the overall meter side-by-side */
+.overall-container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center align items */
+    gap: 24px; /* Increased gap */
+    margin-top: 24px; /* Increased margin */
+    flex-wrap: wrap; /* allow stacking on small widths */
+}
+
+/* subtle enter animation for banner */
+.result-banner { transform-origin: left center; animation: bannerIn 320ms ease both; } /* Adjusted animation duration */
+@keyframes bannerIn { from { transform: translateY(-10px) scale(.95); opacity:0 } to { transform: none; opacity:1 } } /* Adjusted animation */
+
+/* responsive tweaks */
+@media (max-width:700px){
+.overall-container{ flex-direction: column; align-items:center; } /* Center align on small screens */
+    .overall-circle { margin-left: 0; } /* Remove left margin on small screens */
+}
