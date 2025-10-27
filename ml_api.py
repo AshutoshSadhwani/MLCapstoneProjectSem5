@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import joblib
 import os
 import sys
@@ -6,8 +6,16 @@ import traceback
 import pandas as pd
 import numpy as np # Import numpy for handling unseen categories
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='public', static_url_path='')
 
+# Serve index and static files so this single Python service can host both UI and API
+@app.route('/')
+def index():
+    return app.send_static_file('index.html')
+
+@app.route('/<path:filename>')
+def static_files(filename):
+    return send_from_directory(app.static_folder, filename)
 def load_model_and_encoders():
     """Loads the model and label encoders, exiting if files are not found."""
     # Assuming 'models_vect' is in the same directory as your Flask app script
